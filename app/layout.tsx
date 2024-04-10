@@ -17,7 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} font-sans`}>
-        <main className="flex min-h-screen items-center justify-center bg-gradient-to-b from-blue-800 to-indigo-900 p-24">
+        <main className="flex min-h-screen flex-wrap items-center justify-center bg-gradient-to-b from-blue-800 to-indigo-900 p-24">
+          <h1 className="w-full text-center text-6xl font-bold text-white">
+            Todo List
+          </h1>
+
           {children}
         </main>
       </body>
