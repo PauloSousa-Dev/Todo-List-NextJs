@@ -4,8 +4,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Trash2, Pencil } from 'lucide-react';
-import { Button } from '../ui/button';
 import EditButtons from './EditButtons/EditButtons';
 
 type todoCardType = {
@@ -22,7 +20,7 @@ export default function TodoCard({ title, description, id }: todoCardType) {
           <CardDescription>{description}</CardDescription>
         </CardHeader>
       </Card>
-      <EditButtons id={id} />
+      <EditButtons title={title} description={description} id={id} />
     </div>
   );
 }

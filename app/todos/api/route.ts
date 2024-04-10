@@ -65,3 +65,37 @@ export async function DELETE(request: Request) {
     }
   }
 }
+
+export async function PATCH(request: Request) {
+  const formData = await request.formData();
+  const title = formData.get('title');
+  const description = formData.get('description');
+  const id = formData.get('id');
+
+  console.log('title', title);
+  console.log('description', description);
+  console.log('id', id);
+
+  await dbConnect();
+  try {
+    const todo = await Todo.findByIdAndUpdate(
+      id,
+      {
+        title,
+        description,
+      },
+      { new: true },
+    );
+    console.log('todo!!!! ---', todo);
+
+    return new Response(JSON.stringify({ success: true }), {
+      headers: { 'Content-Type': 'application/json' },
+      status: 200, // OK status
+    });
+  } catch (e) {
+    return new Response(JSON.stringify({ success: false, error: e.message }), {
+      headers: { 'Content-Type': 'application/json' },
+      status: 500, // Internal Server Error
+    });
+  }
+}

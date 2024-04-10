@@ -2,6 +2,7 @@
 import { Trash2, Pencil } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
+import EditTodoButton from '@/components/EditTodoButton';
 
 const deleteItem = async (id: String, router: any) => {
   const rest = await fetch('http://localhost:3000/todos/api', {
@@ -12,8 +13,12 @@ const deleteItem = async (id: String, router: any) => {
   router.refresh();
 };
 
-type EditButtonsType = { id: String };
-export default function EditButtons({ id }: EditButtonsType) {
+type EditButtonsType = { id: String; title: String; description: String };
+export default function EditButtons({
+  id,
+  title,
+  description,
+}: EditButtonsType) {
   const router = useRouter();
   return (
     <div className="flex flex-col justify-between gap-2">
@@ -23,9 +28,7 @@ export default function EditButtons({ id }: EditButtonsType) {
       >
         <Trash2 className="mr-2 h-4 w-4" /> Delete
       </Button>
-      <Button className="h-full justify-start text-left">
-        <Pencil className="mr-2 h-4 w-4" /> Edit
-      </Button>
+      <EditTodoButton id={id} title={title} description={description} />
     </div>
   );
 }

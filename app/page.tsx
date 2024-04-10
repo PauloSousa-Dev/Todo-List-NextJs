@@ -17,8 +17,6 @@ export default async function Home() {
     fail = true;
   }
 
-  console.log('posts', posts);
-
   if (fail) {
     return (
       <p className="mb-5 text-3xl font-bold text-white">
