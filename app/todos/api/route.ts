@@ -13,8 +13,6 @@ export async function POST(request: Request) {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
 
-  console.log('HEY', data);
-
   await dbConnect();
   const todo = await Todo.create(data);
   return Response.json(todo);
@@ -22,7 +20,6 @@ export async function POST(request: Request) {
 
 export async function DELETE(request: Request) {
   const { id } = await request.json();
-  console.log('request body', id);
   try {
     if (!id) throw new Error('ID is required.');
     const deletedTodo = await Todo.findByIdAndDelete(id);
@@ -71,8 +68,6 @@ export async function PATCH(request: Request) {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
   const id = formData.get('id');
-
-  console.log('data', data);
 
   await dbConnect();
   try {
