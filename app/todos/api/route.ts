@@ -11,11 +11,12 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const formData = await request.formData();
-  const title = formData.get('title');
-  const description = formData.get('description');
+  const data = Object.fromEntries(formData);
+
+  console.log('HEY', data);
 
   await dbConnect();
-  const todo = await Todo.create({ title, description });
+  const todo = await Todo.create(data);
   return Response.json(todo);
 }
 
@@ -68,25 +69,16 @@ export async function DELETE(request: Request) {
 
 export async function PATCH(request: Request) {
   const formData = await request.formData();
-  const title = formData.get('title');
-  const description = formData.get('description');
+  const data = Object.fromEntries(formData);
   const id = formData.get('id');
 
-  console.log('title', title);
-  console.log('description', description);
-  console.log('id', id);
+  console.log('data', data);
 
   await dbConnect();
   try {
-    const todo = await Todo.findByIdAndUpdate(
-      id,
-      {
-        title,
-        description,
-      },
-      { new: true },
-    );
-    console.log('todo!!!! ---', todo);
+    const todo = await Todo.findByIdAndUpdate(id, data, {
+      new: true,
+    });
 
     return new Response(JSON.stringify({ success: true }), {
       headers: { 'Content-Type': 'application/json' },

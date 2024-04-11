@@ -17,8 +17,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} font-sans`}>
-        <main className="grid min-h-screen  grid-cols-1 flex-wrap items-start justify-center bg-gradient-to-b from-blue-800 to-indigo-900 p-24">
-          <h1 className="w-full text-center text-6xl font-bold text-white">
+        <main className="flex min-h-screen flex-col items-center gap-4 bg-gradient-to-b from-blue-800 to-indigo-900 p-24">
+          <h1 className="w-full scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-white lg:text-5xl">
             Todo List
           </h1>
           {children}

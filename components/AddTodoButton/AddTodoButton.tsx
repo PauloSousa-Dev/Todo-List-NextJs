@@ -11,8 +11,10 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
+import { Checkbox } from '../ui/checkbox';
 
 const search = async (formData: any, router: any) => {
+  await formData.set('isDone', formData.get('isDone') === null ? false : true);
   const rest = await fetch('http://localhost:3000/todos/api', {
     body: formData,
     method: 'post',
@@ -38,6 +40,15 @@ export default function AddTodoButton() {
           <div className="grid gap-4 py-4">
             <Input name="title" placeholder="Title of todo?" />
             <Input name="description" placeholder="Description of todo?" />
+            <div className="flex items-center space-x-2">
+              <Checkbox id="isDone" name="isDone" />
+              <label
+                htmlFor="isDone"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Is done?
+              </label>
+            </div>
           </div>
           <DialogFooter>
             <DialogClose asChild>

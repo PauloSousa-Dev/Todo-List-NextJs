@@ -38,11 +38,12 @@ export default async function Home() {
   return (
     <div className="grid w-full max-w-xl grid-cols-1 gap-2">
       <AddTodoButton />
-      {posts.posts.map(({ _id, title, description }: Todo) => (
+      {posts.posts.map(({ _id, title, description, isDone }: Todo) => (
         <TodoCard
           key={_id.toString()}
           title={title}
           description={description}
+          isDone={isDone}
           id={_id.toString()}
         />
       ))}

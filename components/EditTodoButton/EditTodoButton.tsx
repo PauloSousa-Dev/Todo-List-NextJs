@@ -12,9 +12,10 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { Pencil } from 'lucide-react';
+import { Checkbox } from '../ui/checkbox';
 
 const search = async (formData: any, router: any) => {
-  console.log('formData', formData);
+  await formData.set('isDone', formData.get('isDone') === null ? false : true);
   const rest = await fetch('http://localhost:3000/todos/api', {
     body: formData,
     method: 'PATCH',
@@ -23,12 +24,18 @@ const search = async (formData: any, router: any) => {
   router.refresh();
 };
 
-type EditTodoButtonType = { title: string; description: string; id: string };
+type EditTodoButtonType = {
+  title: string;
+  description: string;
+  id: string;
+  isDone: boolean;
+};
 
 export default function EditTodoButton({
   title,
   description,
   id,
+  isDone,
 }: EditTodoButtonType) {
   const router = useRouter();
   return (
@@ -40,7 +47,7 @@ export default function EditTodoButton({
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Add Todo</DialogTitle>
+          <DialogTitle>Edit Todo</DialogTitle>
         </DialogHeader>
         <form
           action={(formData) => {
@@ -61,6 +68,15 @@ export default function EditTodoButton({
               placeholder="Description of todo?"
               defaultValue={`${description}`}
             />
+            <div className="flex items-center space-x-2">
+              <Checkbox id="isDone" name="isDone" defaultChecked={isDone} />
+              <label
+                htmlFor="isDone"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Is done?
+              </label>
+            </div>
           </div>
           <DialogFooter>
             <DialogClose asChild>
